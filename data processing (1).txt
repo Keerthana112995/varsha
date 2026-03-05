@@ -1,0 +1,56 @@
+import csv
+import random
+
+# Function to create a dataset and store it in a CSV file
+def create_and_store_dataset(csv_file_name, num_samples=100):
+    header = ['ID', 'Feature1', 'Feature2', 'Label']
+    # Generate random data for the dataset
+    data = [
+        [i, random.uniform(0, 10), random.uniform(0, 10), random.choice([0, 1])]
+        for i in range(1, num_samples + 1)
+    ]
+    # Write the data to the CSV file
+    with open(csv_file_name, 'w', newline='') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(header)
+        csv_writer.writerows(data)
+
+    print(f"Dataset with {num_samples} samples created and stored in '{csv_file_name}'.")
+
+# Function to split the dataset and store train/test files
+def split_and_store_data(csv_file_name, train_file_name, test_file_name, test_ratio=0.2):
+    with open(csv_file_name, 'r') as csv_file:
+        csv_reader = csv.reader(csv_file)
+        header = next(csv_reader)
+        data = list(csv_reader)
+
+    # Shuffle the data to ensure randomness
+    random.shuffle(data)
+
+    # Calculate the number of samples for training and testing
+    num_samples = len(data)
+    num_test_samples = int(num_samples * test_ratio)
+    num_train_samples = num_samples - num_test_samples
+
+    # Split the data into training and testing sets
+    train_data = data[:num_train_samples]
+    test_data = data[num_train_samples:]
+
+    # Write training data to a new file
+    with open(train_file_name, 'w', newline='') as train_file:
+        csv_writer = csv.writer(train_file)
+        csv_writer.writerow(header)
+        csv_writer.writerows(train_data)
+
+    # Write testing data to a new file
+    with open(test_file_name, 'w', newline='') as test_file:
+        csv_writer = csv.writer(test_file)
+        csv_writer.writerow(header)
+        csv_writer.writerows(test_data)
+
+    print(f"Training data stored in '{train_file_name}' with {num_train_samples} samples.")
+    print(f"Testing data stored in '{test_file_name}' with {num_test_samples} samples.")
+
+# Example usage
+create_and_store_dataset("full_dataset.csv", 100)
+split_and_store_data("full_dataset.csv", "train_dataset.csv", "test_dataset.csv", test_ratio=0.2)

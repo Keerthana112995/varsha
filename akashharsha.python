@@ -1,0 +1,22 @@
+import random
+
+print("generates random numbers between 0.0. to 1.0",
+      random.random())
+print("generates the number between the range",
+       random.randint(10,50))
+print('generates floating point numbers between the range',
+      random.uniform(12.5, 30.5))
+      
+days=['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+print(random.choice(days)) 
+
+numbers=[10,20,30,40,50]
+
+random.shuffle(numbers)
+print(numbers)
+
+messages=['hi','hello','good moring','how are you']
+print(random.choice(messages))
+
+random.shuffle(messages)
+print(messages)

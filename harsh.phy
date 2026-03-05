@@ -1,0 +1,5 @@
+my_tuple=(1,2,3,4,2,5,2)
+count_2=my_tuple.count(2)
+print("Numbers of occurrences of 2",)
+index_4=my_tuple.index(4)
+print("Index of first occurrence of 4",index_4)
